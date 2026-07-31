@@ -5,30 +5,29 @@ Turborepo monorepo: Next.js App Router + Sanity Studio + shared packages.
 ## Structure
 
 ```
-apps/
-  web/       Next.js site (Vercel)
-  studio/    Sanity Studio
+cms/           Sanity Studio (CMS)
+ui/            Next.js site (Vercel)
 packages/
-  ui/        Shared React UI primitives
-  lib/       Shared utilities (cn, env helpers)
-  config/    Shared TypeScript, ESLint, Prettier, Tailwind/PostCSS
+  ui/          Shared React UI primitives (@sica/ui)
+  lib/         Shared utilities (cn, env helpers)
+  config/      Shared TypeScript, ESLint, Prettier, Tailwind/PostCSS
 ```
 
 ## Setup
 
 ```bash
 pnpm install
-cp apps/web/.env.example apps/web/.env.local
-cp apps/studio/.env.example apps/studio/.env
-# Add SANITY_API_READ_TOKEN to apps/web/.env.local
+cp ui/.env.example ui/.env.local
+cp cms/.env.example cms/.env
+# Add SANITY_API_READ_TOKEN to ui/.env.local
 ```
 
 ## Develop
 
 ```bash
-pnpm dev          # web + studio via Turbo
-pnpm dev:web
-pnpm dev:studio
+pnpm dev          # ui + cms via Turbo
+pnpm dev:ui
+pnpm dev:cms
 pnpm lint
 pnpm typecheck
 pnpm format
@@ -38,19 +37,19 @@ pnpm format
 
 ```bash
 pnpm build        # all apps
-pnpm build:web
-pnpm build:studio
+pnpm build:ui
+pnpm build:cms
 ```
 
 ## Vercel
 
 1. Import the Git repo in Vercel.
-2. Set **Root Directory** to `apps/web`.
+2. Set **Root Directory** to `ui`.
 3. Framework: Next.js (auto-detected).
 4. Add env vars from `.env.example` (Production + Preview).
 5. Optional: enable Turborepo Remote Cache (`npx turbo login` / `npx turbo link`).
 
-Studio deploys separately via `pnpm --filter studio deploy` (Sanity-hosted) or its own Vercel project if preferred.
+Studio deploys separately via `pnpm --filter cms deploy` (Sanity-hosted) or its own Vercel project if preferred.
 
 ## Sanity
 
@@ -58,7 +57,7 @@ Studio deploys separately via `pnpm --filter studio deploy` (Sanity-hosted) or i
 - Dataset: `production`
 
 ```bash
-pnpm --filter studio deploy-schema
+pnpm --filter cms deploy-schema
 pnpm typegen
 ```
 

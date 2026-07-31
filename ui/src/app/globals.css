@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@source "../../../../packages/ui/src";
+@source "../../../packages/ui/src";
 
 @font-face {
   font-family: "Helvetica Neue LT Std";

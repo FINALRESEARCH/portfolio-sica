@@ -8,9 +8,9 @@ dist
 .next
 .turbo
 *.tsbuildinfo
-apps/web/sanity.types.ts
-apps/studio/dist
-apps/studio/.sanity
+ui/sanity.types.ts
+cms/dist
+cms/.sanity
 scripts/webflow-inventory.json
 scripts/scrape-errors.log
 .vercel

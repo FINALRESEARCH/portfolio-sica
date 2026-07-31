@@ -14,7 +14,7 @@ import {fileURLToPath} from 'node:url'
 import {dirname, join} from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const require = createRequire(join(__dirname, '../apps/web/package.json'))
+const require = createRequire(join(__dirname, '../ui/package.json'))
 const {createClient} = require('@sanity/client')
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'qht5ld5w'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'

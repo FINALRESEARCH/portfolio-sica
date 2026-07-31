@@ -1,5 +1,6 @@
 packages:
-  - "apps/*"
+  - "cms"
+  - "ui"
   - "packages/*"
 
 allowBuilds:

@@ -7,9 +7,9 @@ export default defineCliConfig({
   api: {projectId, dataset},
   studioHost: 'sica-portfolio',
   typegen: {
-    path: '../web/src/**/*.{ts,tsx,js,jsx}',
+    path: '../ui/src/**/*.{ts,tsx,js,jsx}',
     schema: 'schema.json',
-    generates: '../web/src/sanity/types.ts',
+    generates: '../ui/src/sanity/types.ts',
   },
   autoUpdates: true,
 })

@@ -32,5 +32,5 @@ export const CONTENT_IMPORT_STATUS = {
   ssenseItems: 'imported-from-sicathai.com',
   moreItems: 'imported-from-sicathai.com',
   notes:
-    'Descriptions, credits, and BTS still need Studio review. Anonymous API reads may not see CLI-imported docs — use SANITY_API_READ_TOKEN in apps/web/.env.local.',
+    'Descriptions, credits, and BTS still need Studio review. Anonymous API reads may not see CLI-imported docs — use SANITY_API_READ_TOKEN in ui/.env.local.',
 } as const

@@ -6,7 +6,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 /**
- * Shared button primitive. Site-specific components stay in apps/web for now.
+ * Shared button primitive. Site-specific components stay in ui/ for now.
  */
 export function Button({
   className,
