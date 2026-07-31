@@ -1,0 +1,32 @@
+{
+  "name": "@sica/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/base.json": "./typescript/base.json",
+    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./typescript/nextjs.json": "./typescript/nextjs.json",
+    "./typescript/react-library": "./typescript/react-library.json",
+    "./typescript/react-library.json": "./typescript/react-library.json",
+    "./eslint/base": "./eslint/base.js",
+    "./eslint/next": "./eslint/next.js",
+    "./eslint/react-internal": "./eslint/react-internal.js",
+    "./prettier": "./prettier/index.js",
+    "./tailwind/postcss": "./tailwind/postcss.config.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "eslint": "^9.36.0",
+    "eslint-config-next": "16.2.12",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-turbo": "^2.5.8",
+    "globals": "^16.4.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.0"
+  }
+}

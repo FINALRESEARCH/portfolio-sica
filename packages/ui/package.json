@@ -1,0 +1,35 @@
+{
+  "name": "@sica/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./button": "./src/button.tsx",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo dist"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@sica/lib": "workspace:*"
+  },
+  "devDependencies": {
+    "@sica/config": "workspace:*",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.36.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.2"
+  }
+}

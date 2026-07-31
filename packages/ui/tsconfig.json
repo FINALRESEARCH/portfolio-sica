@@ -1,0 +1,10 @@
+{
+  "extends": "../config/typescript/react-library.json",
+  "compilerOptions": {
+    "paths": {
+      "@sica/ui/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

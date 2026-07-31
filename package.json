@@ -1,0 +1,30 @@
+{
+  "name": "sica-portfolio",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev --filter=web --filter=studio",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:studio": "turbo run dev --filter=studio",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=web",
+    "build:studio": "turbo run build --filter=studio",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\"",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "typegen": "pnpm --filter studio typegen",
+    "scrape:webflow": "node scripts/scrape-webflow-live.mjs > scripts/webflow-inventory.json",
+    "import:sanity": "node scripts/import-to-sanity.mjs"
+  },
+  "devDependencies": {
+    "@sica/config": "workspace:*",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@11.5.1",
+  "engines": {
+    "node": ">=20"
+  }
+}

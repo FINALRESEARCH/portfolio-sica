@@ -1,0 +1,87 @@
+'use client'
+
+import {useCallback, useEffect, useState} from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
+import {FadeImage} from './fade-image'
+import {urlForImage} from '@/sanity/lib/image'
+import type {SanityImage} from '@/lib/types'
+
+type ProjectSliderProps = {
+  images: SanityImage[]
+  onIndexChange?: (index: number, total: number) => void
+}
+
+export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    duration: 0,
+    align: 'start',
+  })
+  const [selected, setSelected] = useState(0)
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    const index = emblaApi.selectedScrollSnap()
+    setSelected(index)
+    onIndexChange?.(index, images.length)
+  }, [emblaApi, images.length, onIndexChange])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    onSelect()
+    emblaApi.on('select', onSelect)
+    emblaApi.on('reInit', onSelect)
+    return () => {
+      emblaApi.off('select', onSelect)
+      emblaApi.off('reInit', onSelect)
+    }
+  }, [emblaApi, onSelect])
+
+  if (!images.length) return null
+
+  const current = images[selected]
+  const blurUrl = current?.asset
+    ? urlForImage(current).width(80).blur(50).quality(20).url()
+    : undefined
+
+  return (
+    <div className="relative h-[80dvh] max-h-[80dvh]">
+      {blurUrl ? (
+        <div
+          className="pointer-events-none absolute inset-0 bg-contain bg-no-repeat bg-top opacity-40 blur-2xl"
+          style={{backgroundImage: `url(${blurUrl})`}}
+          aria-hidden
+        />
+      ) : null}
+      <div className="relative h-full overflow-hidden" ref={emblaRef}>
+        <div className="flex h-full">
+          {images.map((image, index) => (
+            <div key={index} className="relative min-w-0 flex-[0_0_100%] h-full">
+              <div className="relative flex h-full w-full items-start justify-center">
+                <FadeImage
+                  image={image}
+                  fill
+                  priority={index === 0}
+                  sizes="100vw"
+                  className="!absolute"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label="Previous image"
+        className="absolute inset-y-0 left-0 z-[1] flex w-[50vw] cursor-w-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
+        onClick={() => emblaApi?.scrollPrev()}
+      />
+      <button
+        type="button"
+        aria-label="Next image"
+        className="absolute inset-y-0 right-0 z-[1] flex w-[50vw] cursor-e-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
+        onClick={() => emblaApi?.scrollNext()}
+      />
+    </div>
+  )
+}

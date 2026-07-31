@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@source "../../../../packages/ui/src";
+
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  src: url("/fonts/HelveticaNeueLTStd-Md.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: "Helvetica Neue LT Std", sans-serif;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+}
+
+* {
+  touch-action: manipulation;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  cursor: crosshair;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.7rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #eeeeee;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

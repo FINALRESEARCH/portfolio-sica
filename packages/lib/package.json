@@ -1,0 +1,26 @@
+{
+  "name": "@sica/lib",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cn": "./src/cn.ts",
+    "./env": "./src/env.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo dist"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@sica/config": "workspace:*",
+    "@types/node": "^20",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.2"
+  }
+}

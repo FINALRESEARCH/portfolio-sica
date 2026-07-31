@@ -1,0 +1,58 @@
+Importing into qht5ld5w/production
+✓ project en-route (12 images)
+✓ project ayan-broomfield (10 images)
+✓ project fanci-feast (14 images)
+✓ project rusalka (10 images)
+✓ project fifi (10 images)
+✓ project home-sweet-home (16 images)
+✓ project el (9 images)
+✓ project a-little-while (11 images)
+✓ project tif (11 images)
+✓ project fallen (9 images)
+✓ ssenseItem #1
+✓ ssenseItem #2
+✓ ssenseItem #3
+✓ ssenseItem #4
+✓ ssenseItem #5
+✓ ssenseItem #6
+✓ ssenseItem #7
+✓ ssenseItem #8
+✓ ssenseItem #9
+✓ ssenseItem #10
+✓ ssenseItem #11
+✓ ssenseItem #12
+✓ ssenseItem #13
+✓ ssenseItem #14
+✓ ssenseItem #15
+✓ ssenseItem #16
+✓ ssenseItem #17
+✓ ssenseItem #18
+✓ ssenseItem #19
+✓ ssenseItem #20
+✓ ssenseItem #21
+✓ ssenseItem #22
+✓ moreItem #1
+✓ moreItem #2
+✓ moreItem #3
+✓ moreItem #4
+✓ moreItem #5
+✓ moreItem #6
+✓ moreItem #7
+✓ moreItem #8
+✓ moreItem #9
+✓ moreItem #10
+✓ moreItem #11
+✓ moreItem #12
+✓ moreItem #13
+✓ moreItem #14
+✓ moreItem #15
+✓ moreItem #16
+✓ moreItem #17
+✓ moreItem #18
+✓ moreItem #19
+✓ moreItem #20
+✓ moreItem #21
+✓ moreItem #22
+✓ moreItem #23
+✓ moreItem #24
+Done.

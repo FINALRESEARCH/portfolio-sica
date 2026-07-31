@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+.next
+.turbo
+dist
+build
+coverage
+pnpm-lock.yaml
+apps/studio/dist
+apps/studio/.sanity
+apps/web/.next
+sica-portfolio.webflow
+scripts/webflow-inventory.json
+*.tsbuildinfo
