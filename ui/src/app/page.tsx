@@ -1,7 +1,6 @@
 import type {Metadata} from 'next'
 import {HomeSlider} from '@/components/home-slider'
 import {SiteNav} from '@/components/site-nav'
-import {UiGuide} from '@/components/ui-guide'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
 import {SITE_NAME, socialMetadata} from '@/lib/site-metadata'
 import type {ProjectIndexItem, SiteSettings} from '@/lib/types'
@@ -37,7 +36,6 @@ export default async function HomePage() {
     <main className="relative min-h-dvh">
       <div className="relative">
         <HomeSlider projects={projectList} />
-        <UiGuide />
       </div>
       <SiteNav settings={siteSettings} projects={projectList} homeCurrent />
     </main>
