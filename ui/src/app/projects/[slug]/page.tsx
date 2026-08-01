@@ -2,8 +2,8 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {ProjectPageClient} from '@/components/project-page-client'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
+import {SITE_NAME, socialMetadata} from '@/lib/site-metadata'
 import type {Project, ProjectIndexItem, SiteSettings} from '@/lib/types'
-import {urlForImage} from '@/sanity/lib/image'
 import {sanityFetch} from '@/sanity/lib/live'
 import {
   PROJECT_BY_SLUG_QUERY,
@@ -32,37 +32,32 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({params}: PageProps): Promise<Metadata> {
   const {slug} = await params
-  const {data} = await sanityFetch({
-    query: PROJECT_BY_SLUG_QUERY,
-    params: {slug},
-  })
-  const project = data as Project | null
-  if (!project) return {title: 'SICA THAI'}
+  const [{data: projectData}, {data: settingsData}] = await Promise.all([
+    sanityFetch({
+      query: PROJECT_BY_SLUG_QUERY,
+      params: {slug},
+      stega: false,
+    }),
+    sanityFetch({
+      query: SITE_SETTINGS_QUERY,
+      stega: false,
+    }),
+  ])
+  const project = projectData as Project | null
+  if (!project) return {title: SITE_NAME}
 
-  const title = project.seo?.title || `SICA THAI — ${project.title || ''}`
-  const description = project.seo?.description || undefined
-  const ogSource = project.seo?.ogImage || project.coverImage
-  const ogImage = ogSource?.asset
-    ? urlForImage(ogSource).width(1200).height(630).fit('crop').url()
-    : '/images/OPENGRAPH-IMG.png'
+  const settings = (settingsData || DEFAULT_SITE_SETTINGS) as SiteSettings
+  const title = project.seo?.title || `${SITE_NAME} — ${project.title || ''}`
 
-  return {
+  return socialMetadata({
     title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: [{url: ogImage}],
-    },
-    twitter: {
-      title,
-      description,
-      images: [ogImage],
-    },
-    alternates: {
-      canonical: `/projects/${slug}`,
-    },
-  }
+    description: project.seo?.description || settings.seoDescription,
+    image:
+      project.seo?.ogImage ||
+      project.coverImage ||
+      settings.defaultOgImage,
+    path: `/projects/${slug}`,
+  })
 }
 
 export default async function ProjectPage({params}: PageProps) {

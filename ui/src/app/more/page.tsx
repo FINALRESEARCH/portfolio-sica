@@ -3,6 +3,7 @@ import {MiscGallery} from '@/components/misc-gallery'
 import {ScrollJumpButtons} from '@/components/scroll-jump-buttons'
 import {SiteNav} from '@/components/site-nav'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
+import {socialMetadata} from '@/lib/site-metadata'
 import type {MiscItem, ProjectIndexItem, SiteSettings} from '@/lib/types'
 import {sanityFetch} from '@/sanity/lib/live'
 import {
@@ -11,18 +12,19 @@ import {
   SITE_SETTINGS_QUERY,
 } from '@/sanity/lib/queries'
 
-export const metadata: Metadata = {
-  title: 'SICA THAI — More',
-  description: 'More work by Sica Thai.',
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const {data} = await sanityFetch({
+    query: SITE_SETTINGS_QUERY,
+    stega: false,
+  })
+  const settings = (data || DEFAULT_SITE_SETTINGS) as SiteSettings
+
+  return socialMetadata({
     title: 'SICA THAI — More',
-    images: [{url: '/images/OPENGRAPH-IMG.png'}],
-  },
-  twitter: {
-    title: 'SICA THAI — More',
-    images: ['/images/OPENGRAPH-IMG.png'],
-  },
-  alternates: {canonical: '/more'},
+    description: 'More work by Sica Thai.',
+    image: settings.defaultOgImage,
+    path: '/more',
+  })
 }
 
 export default async function MorePage() {

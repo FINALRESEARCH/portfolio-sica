@@ -2,27 +2,35 @@ import type {Metadata} from 'next'
 import type {ReactNode} from 'react'
 import {SanityLive} from '@/sanity/lib/live'
 import {siteUrl} from '@/sanity/env'
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+} from '@/lib/site-metadata'
 import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'SICA THAI',
+    default: SITE_NAME,
     template: '%s',
   },
-  description:
-    'Sica Thai — stylist and wardrobe consultant. Selected projects, SSENSE, and more.',
-  icons: {
-    icon: '/images/favicon.png',
-    apple: '/images/webclip.png',
-  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  // Favicon + Apple touch icon come from app/icon.png and app/apple-icon.png
   openGraph: {
-    title: 'SICA THAI',
-    images: [{url: '/images/OPENGRAPH-IMG.png'}],
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_US',
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
-    title: 'SICA THAI',
-    images: ['/images/OPENGRAPH-IMG.png'],
+    card: 'summary_large_image',
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE.url],
   },
 }
 

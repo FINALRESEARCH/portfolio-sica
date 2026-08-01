@@ -3,6 +3,7 @@ import {MiscGallery} from '@/components/misc-gallery'
 import {ScrollJumpButtons} from '@/components/scroll-jump-buttons'
 import {SiteNav} from '@/components/site-nav'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
+import {socialMetadata} from '@/lib/site-metadata'
 import type {MiscItem, ProjectIndexItem, SiteSettings} from '@/lib/types'
 import {sanityFetch} from '@/sanity/lib/live'
 import {
@@ -11,18 +12,22 @@ import {
   SSENSE_ITEMS_QUERY,
 } from '@/sanity/lib/queries'
 
-export const metadata: Metadata = {
-  title: 'SSENSE',
-  description: 'E-Commerce Styling by Sica Thai for SSENSE.',
-  openGraph: {
-    title: 'SSENSE',
-    images: [{url: '/images/OPENGRAPH-IMG.png'}],
-  },
-  twitter: {
-    title: 'SSENSE',
-    images: ['/images/OPENGRAPH-IMG.png'],
-  },
-  alternates: {canonical: '/ssense'},
+export async function generateMetadata(): Promise<Metadata> {
+  const {data} = await sanityFetch({
+    query: SITE_SETTINGS_QUERY,
+    stega: false,
+  })
+  const settings = (data || DEFAULT_SITE_SETTINGS) as SiteSettings
+  const intro = settings.ssenseIntro || DEFAULT_SITE_SETTINGS.ssenseIntro
+
+  return socialMetadata({
+    title: intro.title || 'SSENSE',
+    description:
+      intro.description ||
+      'E-Commerce Styling by Sica Thai for SSENSE.',
+    image: settings.defaultOgImage,
+    path: '/ssense',
+  })
 }
 
 export default async function SsensePage() {
