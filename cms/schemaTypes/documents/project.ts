@@ -10,6 +10,7 @@ const portableText = [
       decorators: [
         {title: 'Strong', value: 'strong'},
         {title: 'Emphasis', value: 'em'},
+        {title: 'Grey', value: 'grey'},
       ],
       annotations: [
         {

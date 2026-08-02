@@ -6,6 +6,7 @@ const components: PortableTextComponents = {
     normal: ({children}) => <p className="mb-1">{children}</p>,
   },
   marks: {
+    grey: ({children}) => <span className="inline-block opacity-30">{children}</span>,
     link: ({children, value}) => {
       const href = value?.href as string | undefined
       const isExternal = href?.startsWith('http')
