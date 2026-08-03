@@ -1,9 +1,8 @@
 'use client'
 
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect} from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import {FadeImage} from './fade-image'
-import {urlForImage} from '@/sanity/lib/image'
 import type {SanityImage} from '@/lib/types'
 
 type ProjectSliderProps = {
@@ -17,13 +16,10 @@ export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
     duration: 0,
     align: 'start',
   })
-  const [selected, setSelected] = useState(0)
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return
-    const index = emblaApi.selectedScrollSnap()
-    setSelected(index)
-    onIndexChange?.(index, images.length)
+    onIndexChange?.(emblaApi.selectedScrollSnap(), images.length)
   }, [emblaApi, images.length, onIndexChange])
 
   useEffect(() => {
@@ -39,20 +35,8 @@ export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
 
   if (!images.length) return null
 
-  const current = images[selected]
-  const blurUrl = current?.asset
-    ? urlForImage(current).width(80).blur(50).quality(20).url()
-    : undefined
-
   return (
     <div className="relative h-[80dvh] max-h-[80dvh]">
-      {blurUrl ? (
-        <div
-          className="pointer-events-none absolute inset-0 z-0 bg-contain bg-no-repeat bg-top opacity-40 blur-2xl"
-          style={{backgroundImage: `url(${blurUrl})`}}
-          aria-hidden
-        />
-      ) : null}
       <div className="relative z-[1] h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {images.map((image, index) => (
