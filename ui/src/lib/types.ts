@@ -11,6 +11,7 @@ export type SanityImage = SanityImageSource & {
   asset?: {
     _id?: string
     url?: string
+    originalFilename?: string | null
     metadata?: {
       lqip?: string
       dimensions?: {

@@ -4,6 +4,7 @@ const imageFields = /* groq */ `
   asset->{
     _id,
     url,
+    originalFilename,
     metadata {
       lqip,
       dimensions
@@ -45,12 +46,12 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`*[_type == "project" && slug.c
   coverImage {
     ${imageFields}
   },
-  gallery[] {
+  gallery[asset->metadata.dimensions.width >= 200] {
     ${imageFields}
   },
   description,
   credits,
-  btsImages[] {
+  btsImages[asset->metadata.dimensions.width >= 200] {
     ${imageFields}
   },
   seo {

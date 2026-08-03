@@ -6,6 +6,7 @@ import {BtsModal} from './bts-modal'
 import {PageTransition} from './page-transition'
 import {PortableText} from './portable-text'
 import {SiteNav} from './site-nav'
+import {splitProjectImages} from '@/lib/gallery'
 import type {Project, ProjectIndexItem, SiteSettings} from '@/lib/types'
 
 type ProjectPageClientProps = {
@@ -17,9 +18,9 @@ type ProjectPageClientProps = {
 export function ProjectPageClient({project, settings, projects}: ProjectPageClientProps) {
   const [index, setIndex] = useState(0)
   const [btsOpen, setBtsOpen] = useState(false)
-  const gallery = project.gallery?.filter(Boolean) || []
+  const {gallery, btsImages} = splitProjectImages(project.gallery, project.btsImages)
   const total = gallery.length || 1
-  const hasBts = Boolean(project.btsImages?.length)
+  const hasBts = btsImages.length > 0
 
   const onIndexChange = useCallback((next: number) => {
     setIndex(next)
@@ -69,7 +70,7 @@ export function ProjectPageClient({project, settings, projects}: ProjectPageClie
         open={btsOpen}
         onClose={() => setBtsOpen(false)}
         title={project.title}
-        images={project.btsImages}
+        images={btsImages}
       />
     </>
   )

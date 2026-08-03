@@ -31,13 +31,22 @@ export function FadeImage({
   objectPosition = '50% 0%',
 }: FadeImageProps) {
   const [loaded, setLoaded] = useState(false)
+  const assetId = image?.asset?._id
+
+  const markLoaded = useCallback(() => {
+    setLoaded(true)
+  }, [])
 
   // Cached / already-decoded images may not fire onLoad after mount.
-  const imageRef = useCallback((node: HTMLImageElement | null) => {
-    if (node?.complete && node.naturalWidth > 0) {
-      setLoaded(true)
-    }
-  }, [])
+  const imageRef = useCallback(
+    (node: HTMLImageElement | null) => {
+      if (!node) return
+      if (node.complete && node.naturalWidth > 0) {
+        markLoaded()
+      }
+    },
+    [markLoaded],
+  )
 
   if (!image?.asset) return null
 
@@ -47,6 +56,7 @@ export function FadeImage({
 
   return (
     <Image
+      key={assetId || src}
       ref={imageRef}
       src={src}
       alt={altText}
@@ -57,7 +67,8 @@ export function FadeImage({
       priority={priority}
       placeholder={lqip ? 'blur' : 'empty'}
       blurDataURL={lqip || undefined}
-      onLoad={() => setLoaded(true)}
+      onLoad={markLoaded}
+      onError={markLoaded}
       className={`transition-opacity duration-500 ease-in-out ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
       style={{objectFit, objectPosition}}
     />
