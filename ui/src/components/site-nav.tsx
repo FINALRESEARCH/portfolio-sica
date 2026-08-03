@@ -37,7 +37,7 @@ export function SiteNav({
               aria-current={homeCurrent ? 'page' : undefined}
               className="inline-block transition-opacity duration-300 hover:opacity-30"
             >
-              <span className="text-[4rem] font-medium leading-4 max-[479px]:text-[2rem] max-[479px]:leading-none">
+              <span className="text-[3rem] font-medium leading-none md:text-[4rem] md:leading-4">
                 {s.brandName}
               </span>
             </Link>
