@@ -10,26 +10,36 @@ type PageTransitionProps = {
 }
 
 export function PageTransition({image}: PageTransitionProps) {
-  const [visible, setVisible] = useState(true)
+  const [phase, setPhase] = useState<'visible' | 'fading' | 'done'>('visible')
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setVisible(false), 450)
-    return () => window.clearTimeout(timeout)
+    // Hold the large blurry cover, then fade to the normal project view.
+    const fade = window.setTimeout(() => setPhase('fading'), 500)
+    const done = window.setTimeout(() => setPhase('done'), 1000)
+    return () => {
+      window.clearTimeout(fade)
+      window.clearTimeout(done)
+    }
   }, [])
 
-  if (!visible || !image?.asset) return null
+  if (phase === 'done' || !image?.asset) return null
 
   const src = urlForImage(image).width(2400).quality(80).auto('format').url()
 
   return (
-    <div className="fixed inset-0 z-[999] h-[100dvh] w-[100dvw] bg-white transition-opacity duration-500 ease-in-out">
+    <div
+      className={`fixed inset-0 z-[999] h-[100dvh] w-[100dvw] overflow-hidden bg-white transition-opacity duration-500 ease-in-out ${
+        phase === 'fading' ? 'opacity-0' : 'opacity-100'
+      }`}
+      aria-hidden
+    >
       <Image
         src={src}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="scale-110 object-cover blur-2xl"
       />
     </div>
   )
