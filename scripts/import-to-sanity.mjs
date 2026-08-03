@@ -40,7 +40,9 @@ const inventory = JSON.parse(
 function isPrimaryImage(url) {
   if (!url) return false
   if (/FAVICON|OPENGRAPH|webclip|placeholder/i.test(url)) return false
+  // Webflow responsive derivatives and LQIP / blur thumbs
   if (/-p-\d+\./i.test(url)) return false
+  if (/-blur\./i.test(url)) return false
   return true
 }
 
@@ -71,6 +73,12 @@ async function uploadImage(url) {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`Failed download ${url}: ${res.status}`)
   const buffer = Buffer.from(await res.arrayBuffer())
+  // Skip LQIP / srcset thumbs that slipped past URL filters (~20px files are a few KB)
+  if (buffer.byteLength < 20_000) {
+    console.warn(`skip tiny image (${buffer.byteLength}B): ${url}`)
+    assetCache.set(url, null)
+    return null
+  }
   const filename = decodeURIComponent(url.split('/').pop() || 'image.jpg').replace(/\s+/g, '-')
   const asset = await client.assets.upload('image', buffer, {filename})
   const image = {
@@ -92,7 +100,8 @@ async function upsertProject(project, index) {
   const coverImage = await uploadImage(coverUrl)
   const gallery = []
   for (const url of galleryUrls) {
-    gallery.push(await uploadImage(url))
+    const image = await uploadImage(url)
+    if (image) gallery.push(image)
   }
 
   const doc = {
