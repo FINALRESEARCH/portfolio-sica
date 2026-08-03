@@ -48,12 +48,12 @@ export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
     <div className="relative h-[80dvh] max-h-[80dvh]">
       {blurUrl ? (
         <div
-          className="pointer-events-none absolute inset-0 bg-contain bg-no-repeat bg-top opacity-40 blur-2xl"
+          className="pointer-events-none absolute inset-0 z-0 bg-contain bg-no-repeat bg-top opacity-40 blur-2xl"
           style={{backgroundImage: `url(${blurUrl})`}}
           aria-hidden
         />
       ) : null}
-      <div className="relative h-full overflow-hidden" ref={emblaRef}>
+      <div className="relative z-[1] h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {images.map((image, index) => (
             <div key={index} className="relative min-w-0 flex-[0_0_100%] h-full">
@@ -73,13 +73,13 @@ export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
       <button
         type="button"
         aria-label="Previous image"
-        className="absolute inset-y-0 left-0 z-[1] flex w-[50vw] cursor-w-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
+        className="absolute inset-y-0 left-0 z-[2] flex w-[50vw] cursor-w-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
         onClick={() => emblaApi?.scrollPrev()}
       />
       <button
         type="button"
         aria-label="Next image"
-        className="absolute inset-y-0 right-0 z-[1] flex w-[50vw] cursor-e-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
+        className="absolute inset-y-0 right-0 z-[2] flex w-[50vw] cursor-e-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
         onClick={() => emblaApi?.scrollNext()}
       />
     </div>

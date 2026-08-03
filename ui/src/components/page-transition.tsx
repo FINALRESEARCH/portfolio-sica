@@ -28,7 +28,7 @@ export function PageTransition({image}: PageTransitionProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-[999] h-[100dvh] w-[100dvw] overflow-hidden bg-white transition-opacity duration-500 ease-in-out ${
+      className={`pointer-events-none fixed inset-0 z-[999] h-[100dvh] w-[100dvw] overflow-hidden bg-white transition-opacity duration-500 ease-in-out ${
         phase === 'fading' ? 'opacity-0' : 'opacity-100'
       }`}
       aria-hidden

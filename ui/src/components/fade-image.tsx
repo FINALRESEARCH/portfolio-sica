@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import {urlForImage} from '@/sanity/lib/image'
 import type {SanityImage} from '@/lib/types'
 
@@ -32,6 +32,13 @@ export function FadeImage({
 }: FadeImageProps) {
   const [loaded, setLoaded] = useState(false)
 
+  // Cached / already-decoded images may not fire onLoad after mount.
+  const imageRef = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth > 0) {
+      setLoaded(true)
+    }
+  }, [])
+
   if (!image?.asset) return null
 
   const altText = alt || image.alt || ''
@@ -40,6 +47,7 @@ export function FadeImage({
 
   return (
     <Image
+      ref={imageRef}
       src={src}
       alt={altText}
       fill={fill}
