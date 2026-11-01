@@ -188,12 +188,7 @@ async function upsertSiteSettings() {
     bio: 'Stylist and wardrobe consultant',
     email: 'sicathai37@gmail.com',
     instagramUrl: 'https://instagram.com/sicamode',
-    copyright: '©2025 SICA THAI',
-    designerCredit: {
-      _type: 'designerCredit',
-      label: 'Office of Eric Lee Chen',
-      url: 'https://ericlchen.com/',
-    },
+    copyright: 'SICA THAI',
     seoDescription:
       'Sica Thai — stylist and wardrobe consultant. Selected projects, SSENSE, and more.',
     ssenseIntro: {_type: 'ssenseIntro', title: 'SSENSE', description: 'E-Commerce Styling'},

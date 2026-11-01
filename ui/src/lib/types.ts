@@ -23,11 +23,6 @@ export type SanityImage = SanityImageSource & {
   } | null
 }
 
-export type DesignerCredit = {
-  label?: string | null
-  url?: string | null
-}
-
 export type SsenseIntro = {
   title?: string | null
   description?: string | null
@@ -40,7 +35,6 @@ export type SiteSettings = {
   email?: string | null
   instagramUrl?: string | null
   copyright?: string | null
-  designerCredit?: DesignerCredit | null
   seoDescription?: string | null
   ssenseIntro?: SsenseIntro | null
   defaultOgImage?: SanityImage | null

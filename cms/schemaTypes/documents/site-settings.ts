@@ -41,14 +41,10 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: 'copyright',
-      title: 'Copyright',
+      title: 'Copyright holder',
+      description: 'Shown as ©<current year> <holder>. The year updates automatically.',
       type: 'string',
-      initialValue: '©2025 SICA THAI',
-    }),
-    defineField({
-      name: 'designerCredit',
-      title: 'Designer credit',
-      type: 'designerCredit',
+      initialValue: 'SICA THAI',
     }),
     defineField({
       name: 'defaultOgImage',

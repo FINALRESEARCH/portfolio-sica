@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type {ProjectIndexItem, SiteSettings} from '@/lib/types'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
+import {FinalResearchCredit} from './final-research-credit'
 
 type SiteNavProps = {
   settings?: SiteSettings | null
@@ -64,19 +65,11 @@ export function SiteNav({
             </a>
           </div>
         </div>
-        <div className="flex flex-col opacity-30">
-          <div className="text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">{s.copyright}</div>
-          <div className="text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">
-            Website by{' '}
-            <a
-              href={s.designerCredit?.url || undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity duration-300 hover:opacity-100"
-            >
-              {s.designerCredit?.label}
-            </a>
+        <div className="flex flex-col opacity-30 text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">
+          <div>
+            ©{new Date().getFullYear()} {s.copyright}
           </div>
+          <FinalResearchCredit />
         </div>
       </div>
       <div className="flex max-w-[45vw] flex-col items-end gap-1 pr-4 max-[480px]:gap-[2px] max-[480px]:pr-2">

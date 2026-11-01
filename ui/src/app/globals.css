@@ -21,6 +21,11 @@
   --color-foreground: #000000;
 }
 
+:root {
+  /* Line colour for the FINAL RESEARCH credit hover */
+  --color-text: #000000;
+}
+
 * {
   touch-action: manipulation;
 }
@@ -61,4 +66,36 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* FINAL RESEARCH credit hover (FINALRESEARCH/FR_CREDIT_HOVER). Size and colour
+   are inherited from the nav credits line instead of the stock 0.75rem. */
+.final-research-credit a {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.final-research-default {
+  display: inline-block;
+  visibility: visible;
+}
+
+.final-research-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.final-research-credit a:hover .final-research-hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.final-research-credit a:hover .final-research-default {
+  visibility: hidden;
 }
