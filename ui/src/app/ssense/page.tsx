@@ -46,7 +46,7 @@ export default async function SsensePage() {
         <div className="flex justify-between">
           <div>{intro.title}</div>
         </div>
-        <div className="max-w-[60vw] max-[479px]:max-w-none">
+        <div className="max-w-[60vw] max-[480px]:max-w-none">
           <p className="mb-1">{intro.description}</p>
         </div>
       </div>

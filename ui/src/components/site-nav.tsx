@@ -27,9 +27,9 @@ export function SiteNav({
   const Tag = asNav ? 'nav' : 'div'
 
   return (
-    <Tag id={id} className="relative inset-x-0 top-[16.5dvh] flex h-auto flex-wrap items-stretch justify-between pb-4 cursor-crosshair">
+    <Tag id={id} className="relative inset-x-0 top-[16.5dvh] flex h-auto flex-wrap items-stretch justify-between pb-4 cursor-crosshair max-[480px]:pb-2">
       {details}
-      <div className="flex max-w-[45vw] flex-col gap-32 pl-4 max-[767px]:gap-16 max-[479px]:max-w-none max-[479px]:gap-8">
+      <div className="flex max-w-[45vw] flex-col gap-32 pl-4 max-[480px]:max-w-[50vw] max-[480px]:pl-2">
         <div className="flex flex-col">
           <div className="mb-2 uppercase">
             <Link
@@ -37,7 +37,7 @@ export function SiteNav({
               aria-current={homeCurrent ? 'page' : undefined}
               className="inline-block transition-opacity duration-300 hover:opacity-30"
             >
-              <span className="text-[3rem] font-medium leading-none md:text-[4rem] md:leading-4">
+              <span className="block text-[4rem] leading-4 max-[768px]:text-[3rem] max-[480px]:text-[1.7rem] max-[480px]:leading-[1.2rem]">
                 {s.brandName}
               </span>
             </Link>
@@ -46,9 +46,11 @@ export function SiteNav({
         </div>
         <div className="flex flex-col items-start">
           <div className="mb-2 uppercase">
-            <span className="text-[2rem]">Contact</span>
+            <span className="block text-[2rem] max-[768px]:leading-6 max-[480px]:text-[1.4rem]">
+              Contact
+            </span>
           </div>
-          <div className="flex flex-col items-start gap-1 opacity-30">
+          <div className="flex flex-col items-start gap-1 opacity-30 max-[480px]:gap-0">
             <a href={`mailto:${s.email}`} className="transition-opacity duration-300 hover:opacity-100">
               Email
             </a>
@@ -63,8 +65,8 @@ export function SiteNav({
           </div>
         </div>
         <div className="flex flex-col opacity-30">
-          <div className="text-base leading-[1.3rem]">{s.copyright}</div>
-          <div className="text-base leading-[1.3rem]">
+          <div className="text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">{s.copyright}</div>
+          <div className="text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">
             Website by{' '}
             <a
               href={s.designerCredit?.url || undefined}
@@ -77,17 +79,19 @@ export function SiteNav({
           </div>
         </div>
       </div>
-      <div className="flex max-w-[45vw] flex-col items-end gap-1 pr-4 max-[479px]:max-w-none">
+      <div className="flex max-w-[45vw] flex-col items-end gap-1 pr-4 max-[480px]:gap-[2px] max-[480px]:pr-2">
         <div className="flex flex-col items-end">
           <div className="mb-2 flex justify-end uppercase">
-            <span className="text-[2rem]">Index</span>
+            <span className="block text-[2rem] max-[768px]:leading-6 max-[480px]:text-[1.4rem] max-[480px]:leading-[18px]">
+              Index
+            </span>
           </div>
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-1 text-right max-[480px]:gap-[2px]">
             {projects?.map((project) =>
               project.slug ? (
                 <Link
                   key={project._id}
-                  href={`/projects/${project.slug}`}
+                  href={`/project/${project.slug}`}
                   className="cursor-pointer transition-opacity duration-300 hover:opacity-30"
                 >
                   {project.title}
@@ -96,7 +100,7 @@ export function SiteNav({
             )}
           </div>
         </div>
-        <div className="flex flex-col items-end gap-1">
+        <div className="flex flex-col items-end gap-1 max-[480px]:gap-[2px]">
           <Link
             href="/ssense"
             aria-current={ssenseCurrent ? 'page' : undefined}

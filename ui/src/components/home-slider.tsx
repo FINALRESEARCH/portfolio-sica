@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import useEmblaCarousel from 'embla-carousel-react'
+import {useSwipeNav} from '@/lib/use-swipe-nav'
 import {FadeImage} from './fade-image'
 import type {ProjectIndexItem} from '@/lib/types'
 
@@ -14,7 +15,13 @@ export function HomeSlider({projects}: HomeSliderProps) {
     loop: true,
     duration: 0,
     align: 'start',
+    // Swipes are handled by useSwipeNav so they snap instantly, like Webflow.
+    watchDrag: false,
   })
+  const swipe = useSwipeNav(
+    () => emblaApi?.scrollPrev(true),
+    () => emblaApi?.scrollNext(true),
+  )
 
   if (!projects.length) {
     return (
@@ -25,14 +32,14 @@ export function HomeSlider({projects}: HomeSliderProps) {
   }
 
   return (
-    <div className="relative h-[80dvh] max-h-[80dvh]">
+    <div className="relative h-[80dvh] max-h-[80dvh] select-none" {...swipe}>
       <div className="h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {projects.map((project) => (
             <div key={project._id} className="relative min-w-0 flex-[0_0_100%] h-full">
               {project.slug ? (
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={`/project/${project.slug}`}
                   className="relative flex h-full w-full items-start justify-center"
                 >
                   <div className="relative h-full w-full">
@@ -54,14 +61,14 @@ export function HomeSlider({projects}: HomeSliderProps) {
       <button
         type="button"
         aria-label="Previous project"
-        className="absolute inset-y-0 left-0 z-[1] flex w-[28vw] cursor-w-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
-        onClick={() => emblaApi?.scrollPrev()}
+        className="absolute inset-y-0 left-0 z-[1] flex w-[28vw] cursor-w-resize items-center justify-center border-0 bg-transparent max-[768px]:w-[20vw]"
+        onClick={() => emblaApi?.scrollPrev(true)}
       />
       <button
         type="button"
         aria-label="Next project"
-        className="absolute inset-y-0 right-0 z-[1] flex w-[28vw] cursor-e-resize items-center justify-center border-0 bg-transparent max-[767px]:w-[20vw]"
-        onClick={() => emblaApi?.scrollNext()}
+        className="absolute inset-y-0 right-0 z-[1] flex w-[28vw] cursor-e-resize items-center justify-center border-0 bg-transparent max-[768px]:w-[20vw]"
+        onClick={() => emblaApi?.scrollNext(true)}
       />
     </div>
   )

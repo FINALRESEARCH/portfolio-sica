@@ -9,6 +9,10 @@ import {
 } from '@/lib/site-metadata'
 import './globals.css'
 
+// Mark fade-in images as loaded before React hydrates, so slow connections
+// don't keep a downloaded image hidden behind its blur (see FadeImage).
+const IMAGE_LOADED_SCRIPT = `document.addEventListener('load',function(e){var t=e.target;if(t.tagName==='IMG'&&t.hasAttribute('data-fade'))t.setAttribute('data-loaded','')},true)`
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -37,6 +41,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{children: ReactNode}>) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{__html: IMAGE_LOADED_SCRIPT}} />
+      </head>
       <body>
         {children}
         <SanityLive />

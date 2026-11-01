@@ -9,6 +9,12 @@
   font-display: swap;
 }
 
+/* Webflow transitions use the CSS `ease-in-out` keyword, not Tailwind's curve. */
+@theme {
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --default-transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
 @theme inline {
   --font-sans: "Helvetica Neue LT Std", sans-serif;
   --color-background: #ffffff;
@@ -17,10 +23,6 @@
 
 * {
   touch-action: manipulation;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -33,6 +35,18 @@ body {
   line-height: 1.7rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 479px) {
+  body {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+/* Set by the inline script in layout.tsx before hydration. */
+img[data-fade][data-loaded] {
+  opacity: 1;
 }
 
 ::selection {

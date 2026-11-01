@@ -34,7 +34,8 @@ export default async function HomePage() {
 
   return (
     <main className="relative min-h-dvh">
-      <div className="relative">
+      {/* Webflow sets cursor:default on the home body at ≤479 only */}
+      <div className="relative max-[480px]:cursor-default">
         <HomeSlider projects={projectList} />
       </div>
       <SiteNav settings={siteSettings} projects={projectList} homeCurrent />

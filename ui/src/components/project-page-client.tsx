@@ -6,7 +6,6 @@ import {BtsModal} from './bts-modal'
 import {PageTransition} from './page-transition'
 import {PortableText} from './portable-text'
 import {SiteNav} from './site-nav'
-import {splitProjectImages} from '@/lib/gallery'
 import type {Project, ProjectIndexItem, SiteSettings} from '@/lib/types'
 
 type ProjectPageClientProps = {
@@ -18,7 +17,8 @@ type ProjectPageClientProps = {
 export function ProjectPageClient({project, settings, projects}: ProjectPageClientProps) {
   const [index, setIndex] = useState(0)
   const [btsOpen, setBtsOpen] = useState(false)
-  const {gallery, btsImages} = splitProjectImages(project.gallery, project.btsImages)
+  const gallery = project.gallery || []
+  const btsImages = project.btsImages || []
   const total = gallery.length || 1
   const hasBts = btsImages.length > 0
 
@@ -28,33 +28,32 @@ export function ProjectPageClient({project, settings, projects}: ProjectPageClie
 
   const details = (
     <div className="mb-12 flex w-full flex-col border-b border-black/10">
-      <div className="mb-12 flex w-full flex-col justify-between gap-4 px-4">
-        <div className="relative flex justify-between">
+      <div className="mb-12 flex w-full flex-col justify-between gap-4 px-4 max-[480px]:px-2">
+        {/* Not `relative`: the counter is centred against the full-width nav, like Webflow */}
+        <div className="flex justify-between">
           <div>{project.title}</div>
-          <div className="absolute left-[47.5%] right-[47.5%] w-[5%] text-center max-[991px]:static max-[991px]:w-auto max-[991px]:text-left">
+          <div className="absolute left-[47.5%] right-[47.5%] w-[5%] text-center max-[992px]:static max-[992px]:w-auto max-[992px]:text-left">
             {index + 1} / {total}
           </div>
           {hasBts ? (
             <button
               type="button"
               onClick={() => setBtsOpen(true)}
-              className="opacity-30 transition-opacity duration-300 hover:opacity-100"
+              className="cursor-pointer opacity-30 transition-opacity duration-300 hover:opacity-100"
             >
               BTS
             </button>
-          ) : (
-            <span />
-          )}
+          ) : null}
         </div>
-        <div className="max-w-[60vw] max-[479px]:max-w-none">
+        <div className="max-w-[60vw] max-[480px]:max-w-full">
           <PortableText value={project.description} />
         </div>
       </div>
-      <div className="mb-12 flex w-full flex-col justify-between gap-4 px-4">
+      <div className="mb-12 flex w-full flex-col justify-between gap-4 px-4 max-[480px]:px-2">
         <div className="flex justify-between">
           <div>Credits</div>
         </div>
-        <div className="max-w-[60vw] max-[479px]:max-w-none">
+        <div className="max-w-[60vw] max-[480px]:max-w-full">
           <PortableText value={project.credits} />
         </div>
       </div>

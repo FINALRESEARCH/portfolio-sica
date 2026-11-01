@@ -53,7 +53,7 @@ Studio deploys separately via `pnpm --filter cms deploy` (Sanity-hosted) or its 
 
 ## Sanity
 
-- Project ID: `qht5ld5w`
+- Project ID: `fdog0g13`
 - Dataset: `production`
 
 ```bash

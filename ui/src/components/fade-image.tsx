@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import {useCallback, useState} from 'react'
+import {blurBackground} from '@/lib/blur'
 import {urlForImage} from '@/sanity/lib/image'
 import type {SanityImage} from '@/lib/types'
 
@@ -16,6 +17,8 @@ type FadeImageProps = {
   sizes?: string
   objectFit?: 'contain' | 'cover'
   objectPosition?: string
+  /** Fade-in duration; the live site uses 500ms on home and 300ms on projects. */
+  fadeDuration?: 300 | 500
 }
 
 export function FadeImage({
@@ -29,6 +32,7 @@ export function FadeImage({
   sizes,
   objectFit = 'contain',
   objectPosition = '50% 0%',
+  fadeDuration = 500,
 }: FadeImageProps) {
   const [loaded, setLoaded] = useState(false)
   const assetId = image?.asset?._id
@@ -51,10 +55,10 @@ export function FadeImage({
   if (!image?.asset) return null
 
   const altText = alt || image.alt || ''
-  const lqip = image.asset.metadata?.lqip
   const src = urlForImage(image).width(2400).quality(85).auto('format').url()
+  const blur = blurBackground(image)
 
-  return (
+  const img = (
     <Image
       key={assetId || src}
       ref={imageRef}
@@ -65,12 +69,46 @@ export function FadeImage({
       height={fill ? undefined : height}
       sizes={sizes}
       priority={priority}
-      placeholder={lqip ? 'blur' : 'empty'}
-      blurDataURL={lqip || undefined}
       onLoad={markLoaded}
       onError={markLoaded}
-      className={`transition-opacity duration-500 ease-in-out ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
+      data-fade=""
+      // The pre-hydration script may add data-loaded.
+      suppressHydrationWarning
+      className={`transition-opacity ease-in-out ${fadeDuration === 300 ? 'duration-300' : 'duration-500'} ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
       style={{objectFit, objectPosition}}
     />
+  )
+
+  if (!blur) return img
+
+  // Blur-up layer sits behind the image, laid out like it, and is removed once
+  // the fade-in has finished (so transparent PNGs don't show it through).
+  const blurLayer = (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 transition-opacity duration-0 ${loaded ? `opacity-0 ${fadeDuration === 300 ? 'delay-300' : 'delay-500'}` : 'opacity-100'}`}
+      style={{
+        backgroundImage: blur,
+        backgroundSize: objectFit,
+        backgroundPosition: objectPosition,
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
+  )
+
+  if (fill) {
+    return (
+      <>
+        {blurLayer}
+        {img}
+      </>
+    )
+  }
+
+  return (
+    <div className="relative">
+      {blurLayer}
+      {img}
+    </div>
   )
 }

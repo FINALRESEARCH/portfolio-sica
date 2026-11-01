@@ -46,12 +46,12 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`*[_type == "project" && slug.c
   coverImage {
     ${imageFields}
   },
-  gallery[asset->metadata.dimensions.width >= 200] {
+  gallery[] {
     ${imageFields}
   },
   description,
   credits,
-  btsImages[asset->metadata.dimensions.width >= 200] {
+  btsImages[] {
     ${imageFields}
   },
   seo {

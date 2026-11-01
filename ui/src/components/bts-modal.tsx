@@ -25,11 +25,13 @@ export function BtsModal({open, onClose, title, images}: BtsModalProps) {
     }
   }, [open, onClose])
 
-  if (!open) return null
-
   return (
-    <div className="fixed inset-0 z-[998] overflow-auto bg-white max-[767px]:pb-16">
-      <div className="fixed inset-x-4 bottom-2 z-[999] flex justify-between">
+    // Stays mounted while closed so it reopens at the same scroll position, like Webflow.
+    <div
+      className={`fixed inset-0 z-[998] overflow-auto bg-white max-[768px]:pb-16 ${open ? '' : 'hidden'}`}
+      aria-hidden={!open}
+    >
+      <div className="fixed inset-x-4 bottom-2 z-[999] flex justify-between max-[480px]:bottom-[9px] max-[480px]:left-2">
         <div className="flex gap-1.5">
           <span className="inline-block opacity-30">{title}</span>
           <span className="inline-block opacity-30">(BTS)</span>
@@ -37,20 +39,20 @@ export function BtsModal({open, onClose, title, images}: BtsModalProps) {
         <button
           type="button"
           onClick={onClose}
-          className="opacity-30 transition-opacity duration-300 hover:opacity-100"
+          className="cursor-pointer opacity-30 transition-opacity duration-300 hover:opacity-100"
         >
           close
         </button>
       </div>
-      <div className="mx-auto flex max-w-[40vw] justify-center max-[767px]:max-w-[70vw] max-[479px]:max-w-[90vw]">
-        <div className="flex w-full flex-col gap-20 max-[767px]:gap-16 max-[479px]:gap-12">
+      <div className="mx-auto flex max-w-[40vw] justify-center max-[768px]:max-w-none">
+        <div className="flex w-full flex-col gap-20">
           {images?.map((image, index) => (
             <div key={index} className="relative w-full">
               <FadeImage
                 image={image}
                 width={image.asset?.metadata?.dimensions?.width || 1200}
                 height={image.asset?.metadata?.dimensions?.height || 1600}
-                sizes="(max-width: 767px) 90vw, 40vw"
+                sizes="(max-width: 767px) 100vw, 40vw"
                 className="!relative h-auto w-full"
                 objectFit="contain"
               />

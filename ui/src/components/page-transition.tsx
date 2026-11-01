@@ -1,8 +1,7 @@
 'use client'
 
 import {useEffect, useState} from 'react'
-import Image from 'next/image'
-import {urlForImage} from '@/sanity/lib/image'
+import {blurBackground} from '@/lib/blur'
 import type {SanityImage} from '@/lib/types'
 
 type PageTransitionProps = {
@@ -13,10 +12,18 @@ export function PageTransition({image}: PageTransitionProps) {
   const [phase, setPhase] = useState<'visible' | 'fading' | 'done'>('visible')
 
   useEffect(() => {
-    // Hold the large blurry cover, then fade to the normal project view.
-    const fade = window.setTimeout(() => setPhase('fading'), 500)
-    const done = window.setTimeout(() => setPhase('done'), 1000)
+    // Like the Webflow original: hold the blurry cover until the page has fully
+    // loaded, then 500ms more, then fade out over 500ms.
+    let fade = 0
+    let done = 0
+    const start = () => {
+      fade = window.setTimeout(() => setPhase('fading'), 500)
+      done = window.setTimeout(() => setPhase('done'), 1000)
+    }
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, {once: true})
     return () => {
+      window.removeEventListener('load', start)
       window.clearTimeout(fade)
       window.clearTimeout(done)
     }
@@ -24,7 +31,7 @@ export function PageTransition({image}: PageTransitionProps) {
 
   if (phase === 'done' || !image?.asset) return null
 
-  const src = urlForImage(image).width(2400).quality(80).auto('format').url()
+  const blur = blurBackground(image)
 
   return (
     <div
@@ -33,14 +40,12 @@ export function PageTransition({image}: PageTransitionProps) {
       }`}
       aria-hidden
     >
-      <Image
-        src={src}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="scale-110 object-cover blur-2xl"
-      />
+      {blur ? (
+        <div
+          className="absolute inset-0"
+          style={{backgroundImage: blur, backgroundSize: 'cover', backgroundPosition: '50% 50%'}}
+        />
+      ) : null}
     </div>
   )
 }

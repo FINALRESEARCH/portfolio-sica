@@ -57,7 +57,7 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
       project.seo?.ogImage ||
       project.coverImage ||
       settings.defaultOgImage,
-    path: `/projects/${slug}`,
+    path: `/project/${slug}`,
   })
 }
 
