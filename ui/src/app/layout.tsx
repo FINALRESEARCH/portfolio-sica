@@ -1,7 +1,7 @@
 import type {Metadata} from 'next'
 import type {ReactNode} from 'react'
 import {SanityLive} from '@/sanity/lib/live'
-import {siteUrl} from '@/sanity/env'
+import {isIndexable, siteUrl} from '@/sanity/env'
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   },
   description: DEFAULT_DESCRIPTION,
   applicationName: SITE_NAME,
+  robots: isIndexable ? undefined : {index: false, follow: false},
   // Favicon + Apple touch icon come from app/icon.png and app/apple-icon.png
   openGraph: {
     title: SITE_NAME,
