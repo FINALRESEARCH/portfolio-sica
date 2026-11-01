@@ -1,0 +1,6 @@
+.figmog
+.turbo
+**/.next
+**/node_modules
+sica-portfolio.webflow
+scripts/webflow-inventory.json
