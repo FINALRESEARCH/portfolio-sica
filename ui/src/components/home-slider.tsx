@@ -25,14 +25,14 @@ export function HomeSlider({projects}: HomeSliderProps) {
 
   if (!projects.length) {
     return (
-      <div className="relative flex h-[80dvh] max-h-[80dvh] items-center justify-center px-4 text-center opacity-30">
+      <div className="relative flex h-[80svh] max-h-[80svh] items-center justify-center px-4 text-center opacity-30">
         Add projects in Sanity Studio to populate the home slider.
       </div>
     )
   }
 
   return (
-    <div className="relative h-[80dvh] max-h-[80dvh] select-none" {...swipe}>
+    <div className="relative h-[80svh] max-h-[80svh] select-none" {...swipe}>
       <div className="h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {projects.map((project) => (

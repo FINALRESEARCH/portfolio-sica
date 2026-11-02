@@ -27,8 +27,10 @@ export function SiteNav({
   const s = {...DEFAULT_SITE_SETTINGS, ...settings}
   const Tag = asNav ? 'nav' : 'div'
 
+  // svh, not dvh: Chrome on iOS resolves dvh on first load as if its bottom
+  // toolbar weren't there, which pushed this peek below the fold.
   return (
-    <Tag id={id} className="relative inset-x-0 top-[16.5dvh] flex h-auto flex-wrap items-stretch justify-between pb-4 cursor-crosshair max-[480px]:pb-2">
+    <Tag id={id} className="relative inset-x-0 top-[16.5svh] flex h-auto flex-wrap items-stretch justify-between pb-4 cursor-crosshair max-[480px]:pb-2">
       {details}
       <div className="flex max-w-[45vw] flex-col gap-32 pl-4 max-[480px]:max-w-[50vw] max-[480px]:pl-2">
         <div className="flex flex-col">

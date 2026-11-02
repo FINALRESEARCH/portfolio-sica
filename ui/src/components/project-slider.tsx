@@ -43,7 +43,7 @@ export function ProjectSlider({images, onIndexChange}: ProjectSliderProps) {
   if (!images.length) return null
 
   return (
-    <div className="relative h-[80dvh] max-h-[80dvh] select-none" {...swipe}>
+    <div className="relative h-[80svh] max-h-[80svh] select-none" {...swipe}>
       <div className="relative z-[1] h-full overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {images.map((image, index) => (
