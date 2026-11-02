@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type {ProjectIndexItem, SiteSettings} from '@/lib/types'
 import {DEFAULT_SITE_SETTINGS} from '@/lib/defaults'
+import {CurrentYear} from './current-year'
 import {FinalResearchCredit} from './final-research-credit'
 
 type SiteNavProps = {
@@ -69,7 +70,7 @@ export function SiteNav({
         </div>
         <div className="flex flex-col opacity-30 text-base leading-[1.3rem] max-[768px]:text-[1.5rem] max-[768px]:leading-[1.7rem] max-[480px]:text-[16px] max-[480px]:leading-[19px]">
           <div>
-            ©{new Date().getFullYear()} {s.copyright}
+            ©<CurrentYear /> {s.copyright}
           </div>
           <FinalResearchCredit />
         </div>
