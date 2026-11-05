@@ -14,7 +14,6 @@ import {
 import {client} from '@/sanity/lib/client'
 
 export const dynamicParams = true
-export const dynamic = 'force-dynamic'
 
 type PageProps = {
   params: Promise<{slug: string}>
