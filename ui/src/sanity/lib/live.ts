@@ -8,4 +8,5 @@ export const {sanityFetch, SanityLive} = defineLive({
     apiVersion: '2025-07-31',
   }),
   serverToken: token,
+  browserToken: false,
 })
